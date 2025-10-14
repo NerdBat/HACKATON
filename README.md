@@ -1,7 +1,7 @@
 # HACKATON 2025
 
 ## Membres : 
-- Ngy Francois
+- Ngy François
 - Theissen Antoine 
 - Wahba Angélique
 - Wahba Marie
