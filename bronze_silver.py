@@ -3,7 +3,7 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 from sqlalchemy import create_engine, text
 
-# --- MinIO (inchangé) ---
+# --- MinIO  ---
 ENDPOINT   = "https://play.min.io"
 ACCESS_KEY = "Q3AM3UQ867SPQQA43P2F"
 SECRET_KEY = "zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG"
@@ -18,14 +18,14 @@ s3 = boto3.client(
     aws_secret_access_key=SECRET_KEY,
 )
 
-# --- MySQL (activer local_infile !) ---
+# --- MySQL ---
 MYSQL_USER = "root"
 MYSQL_PASS = "jesuisunmotdepasse"
 MYSQL_HOST = "localhost"
 MYSQL_PORT = 3306
 MYSQL_DB   = "hackaton"
 
-# IMPORTANT: local_infile=1 + connect_args pour PyMySQL
+# local_infile=1 + connect_args pour PyMySQL
 MYSQL_URL = (
     f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASS}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}"
     "?charset=utf8mb4&local_infile=1"
@@ -41,7 +41,7 @@ with NamedTemporaryFile(suffix=".csv", delete=False) as tmp:
 
 print(f"📥 CSV téléchargé → {tmp_name}")
 
-# --- 2) Créer la table (schéma identique à ton dtype_map) ---
+# --- 2) Créer la table ---
 create_table_sql = f"""
 CREATE TABLE IF NOT EXISTS `{TABLE}` (
   `City`                   VARCHAR(100),
