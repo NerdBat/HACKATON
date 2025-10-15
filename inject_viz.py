@@ -74,7 +74,7 @@ tmp_csv = tempfile.NamedTemporaryFile(suffix=".csv", delete=False)
 tmp_csv_path = tmp_csv.name
 tmp_csv.close()
 
-# Écrire un CSV simple: séparateur ',', guillemets si besoin, fin de ligne '\n'
+# Écrire un CSV simple
 df_out.to_csv(tmp_csv_path, index=False, encoding="utf-8", quoting=csv.QUOTE_MINIMAL)
 print("📝 CSV temporaire prêt →", tmp_csv_path)
 
