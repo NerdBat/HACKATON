@@ -25,7 +25,7 @@ Chaque ligne du fichier CSV correspond à un instantané du trafic dans l’une 
 | Colonne | Description |
 |----------|--------------|
 | **City** | Nom de la ville (ex : *MetropolisX*, *SolarisVille*) |
-| **Vehicle Type** | Type de véhicule (ex : *Car*, *Flying Car*) |
+| **Vehicle Type** | Type de véhicule (ex : *Car*, *Bus*, ...) |
 | **Weather Conditions** | Conditions météorologiques (ex : *Clear*, *Rainy*) |
 | **Economic Conditions** | Contexte économique (ex : *Booming*, *Recession*) |
 | **Day of Week** | Jour de la semaine |
@@ -59,4 +59,17 @@ Notre objectif est de :
 
 ## Format du fichier
 
-Le dataset est fourni au format **CSV**, facilement exploitable avec des outils de data science tels que **Python (Pandas, PySpark)**, **SQL**, ou des notebooks interactifs comme **JupyterLab**.  
+Le dataset est fourni au format **CSV**, facilement exploitable avec des outils de data science tels que **Python (Pandas, Python)**, **SQL**, ou des notebooks interactifs comme **JupyterNoteBook**.  
+
+## Dependance :
+
+- boto3 pour minIO
+- Mysql
+- Python (pandas, numpy, sqlalchemy, ...)
+- Power Bi
+
+## Execution :
+
+Au préalable il faut créer la database sur mysql (dans notre cas on a un utilisateur root en localhost avec comme table : hackaton ).
+On éxecute le fichier bronze_silver.py pour amener les données brutes de minIO dans notre base mysql en les nettoyant / standardisant.
+Puis le script inject_viz arrange les données pour éviter des transformation dans PowerQuery avant de les rentrer dans une autre table qui sert a alimenter la dataviz. Pour ce qui est du ML on part de la base silver pour transformer toutes les valeurs qui ne sont pas des valeurs numérique en valeur numérique avec le traitement.ipynb afin d'avoir un dataset prêt pour le machine learning. Ensuite on utilise Scikit learn et le modèle RandomForestClassfier pour crée un modèle de machine learning. L'utilisaation de MLFlow permet d'exporter ce modèle et de l'utiliser dans une api web. Nôtre api fonctionne avec MLFlow et FastApi et permet d'exploiter le modèle entrainer avec mlflow.ipynb. Pour utiliser la prédiction on éxecute la commmande '''unicorn app:app --reload''' pour initialiser le serveur, puis on va à l'adresse suivante : localhost:8000.
